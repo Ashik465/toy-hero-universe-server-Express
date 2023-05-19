@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000
 
 
@@ -48,7 +48,7 @@ async function run() {
         res.send(toys)
     })
 
-    // get specific toy data by email 
+    // get some toy data by email 
 
     app.get('/mytoys', async(req, res) => {
         const email = req.query.email;
@@ -66,7 +66,16 @@ async function run() {
         res.send(myToys)
     })
 
-
+// get specific toy data by id 
+ 
+    app.get('/toy/:id', async(req, res) => {
+        const id = req.params.id;
+        // console.log(id);
+        const query = { _id: new ObjectId (id) };
+        const result = await toyHeroCollection.findOne(query);
+       
+        res.send(result)
+    })
 
 
 
