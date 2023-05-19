@@ -66,16 +66,16 @@ async function run() {
         res.send(myToys)
     })
 
-// get specific toy data by id 
+// get single toy data by id 
  
-    app.get('/toy/:id', async(req, res) => {
-        const id = req.params.id;
-        // console.log(id);
-        const query = { _id: new ObjectId (id) };
-        const result = await toyHeroCollection.findOne(query);
-       
-        res.send(result)
-    })
+app.get('/mytoys/:id', async(req, res) => {
+
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)};
+    
+      const toy = await toyHeroCollection.findOne(query);
+      res.json(toy);
+  } )
 
 
 
