@@ -77,7 +77,25 @@ app.get('/mytoys/:id', async(req, res) => {
       res.json(toy);
   } )
 
+  // update single toy data by id
 
+    app.put('/mytoys/:id', async(req, res) => {
+        const id = req.params.id;
+        const updatedToy = req.body;
+        const filter = {_id: new ObjectId(id)};
+        const options = { upsert: true };
+        const updateDoc = {
+            $set: {
+                
+                price: updatedToy.price,
+                Quantity : updatedToy.Quantity,
+                description: updatedToy.description,
+               
+            },
+            };
+            const result = await toyHeroCollection.updateOne(filter, updateDoc, options);
+            res.json(result);
+    })
 
 
 
