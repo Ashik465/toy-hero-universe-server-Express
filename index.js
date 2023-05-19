@@ -55,6 +55,14 @@ async function run() {
         const query = { email: email };
         const cursor = toyHeroCollection.find(query);
         const myToys = await cursor.toArray();
+        myToys.forEach((toy) => {
+            toy.price = parseFloat(toy.price);
+          });
+        
+          // Sort by price in ascending order
+          myToys.sort((a, b) => a.price - b.price);
+        
+         
         res.send(myToys)
     })
 
