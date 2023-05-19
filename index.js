@@ -40,6 +40,13 @@ async function run() {
        res.send(result)
     })
 
+    // get all toys data limit 20
+    app.get('/toys', async(req, res) => {
+        const limit = 20 ;
+        const cursor = toyHeroCollection.find({}).limit(limit);
+        const toys = await cursor.toArray();
+        res.send(toys)
+    })
 
     
 
