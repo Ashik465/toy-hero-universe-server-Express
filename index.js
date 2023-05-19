@@ -97,6 +97,19 @@ app.get('/mytoys/:id', async(req, res) => {
             res.json(result);
     })
 
+// delete single toy data by id  
+
+    app.delete('/mytoys/:id', async(req, res) => {
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)};
+
+        const result = await toyHeroCollection.deleteOne(query);
+        res.json(result);
+    })
+
+
+
+
 
 
     // Send a ping to confirm a successful connection
