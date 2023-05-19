@@ -48,7 +48,15 @@ async function run() {
         res.send(toys)
     })
 
-    
+    // get specific toy data by email 
+
+    app.get('/mytoys', async(req, res) => {
+        const email = req.query.email;
+        const query = { email: email };
+        const cursor = toyHeroCollection.find(query);
+        const myToys = await cursor.toArray();
+        res.send(myToys)
+    })
 
 
 
