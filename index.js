@@ -97,6 +97,21 @@ app.get('/mytoys/:id', async(req, res) => {
       res.json(toy);
   } )
 
+// get toy data by category
+
+app.get('/toys/:category', async(req, res) => {
+    const category = req.params.category;
+    const query = {   toyCategory: category };
+    const cursor = toyHeroCollection.find(query);       
+
+    const toys = await cursor.toArray();
+    res.send(toys)
+})
+
+   
+
+
+
   // update single toy data by id
 
     app.put('/mytoys/:id', async(req, res) => {
