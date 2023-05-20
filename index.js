@@ -65,6 +65,17 @@ async function run() {
 const result = await toyHeroCollection.createIndex(indexKey, indexOptions);
 
 
+
+ // get all toys data limit 20
+ app.get('/toys', async(req, res) => {
+  const limit = 20 ;
+  const cursor = toyHeroCollection.find({}).limit(limit);
+  const toys = await cursor.toArray();
+  res.send(toys)
+})
+
+
+
 //searching by name
 
 app.get('/search/:text', async(req, res) => {
@@ -78,21 +89,9 @@ app.get('/search/:text', async(req, res) => {
 
 
 
-    // Create or post  a single new toy 
-      
-    app.post('/addToy', async(req, res) => {
-        const newToy = req.body;
-       const result = await toyHeroCollection.insertOne(newToy);
-       res.send(result)
-    })
+   
 
-    // get all toys data limit 20
-    app.get('/toys', async(req, res) => {
-        const limit = 20 ;
-        const cursor = toyHeroCollection.find({}).limit(limit);
-        const toys = await cursor.toArray();
-        res.send(toys)
-    })
+   
 
     // get some toy data by email 
 
@@ -135,7 +134,13 @@ app.get('/toys/:category', async(req, res) => {
 })
 
    
-
+ // Create or post  a single new toy 
+      
+ app.post('/addToy', async(req, res) => {
+  const newToy = req.body;
+ const result = await toyHeroCollection.insertOne(newToy);
+ res.send(result)
+})
 
 
   // update single toy data by id
